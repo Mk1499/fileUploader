@@ -2,17 +2,31 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const server = require("http").Server(app);
+const bodyParser = require("body-parser");
 
-app.get("/",(req,res)=>{
-    res.send("Welcome to file uploader...")
-})
+app.get("/", (req, res) => {
+  res.send("Welcome to file uploader...");
+});
 
 // enable enviromental vars
 require("dotenv").config();
 
 app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/upload", express.static(__dirname + "/public/images"));
+app.use(express.json()); // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
+
+app.use("/upload", express.static(__dirname + "/public"));
 
 // Uploading...
 const multer = require("multer");
