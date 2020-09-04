@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const server = require("http").Server(app);
+
+app.get("/",(req,res)=>{
+    res.send("Welcome to file uploader...")
+})
+
 // enable enviromental vars
 require("dotenv").config();
 
