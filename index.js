@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.post("/upload", upload.single("new-image"), (req, res) => {
   console.log("REQ : ", req.file.path);
-  res.send({ path: req.file.path ,, fullPath: __dirname + "/" + req.file.path});
+  res.send({ path: req.file.path , fullPath: __dirname + "/" + req.file.path});
 });
 
 let port = process.env.PORT || 3005;
